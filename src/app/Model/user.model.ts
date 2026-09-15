@@ -30,30 +30,67 @@ const userSchema = new mongoose.Schema(
             type: String,
         },
 
-        addresses: [
-            {
-                street: {
-                    type: String,
-                },
+     addresses: [
+  {
+    fullName: {
+                type: String,
+                trim: true,
+    },
+    phone: {
+                 type: String,
+                 trim: true,
+    },
+    label: {
+                 type: String,
+                 enum: ["home", "work", "other"],
+                 default: "home",
+    },
+    street: {
+                type: String,
+                trim: true,
+    },
+    city: {
+                type: String,
+                trim: true,
+    },
+    state: {
+                type: String,
+                trim: true,
+    },
+    postalCode: {
+                type: String,
+                trim: true,
+    },
+    country: {
+                type: String,
+                trim: true,
+                default: "India",
+    },
+     landmark: {
+                type: String,
+                trim: true,
+    },
+    isDefault: {
+                type: Boolean,
+                default: false,
+    },
+  },
+],
 
-                city: {
-                    type: String,
-                },
+    dateOfBirth: {
+                type: Date,
+},
 
-                state: {
-                    type: String,
-                },
+    gender: {
+                 type: String,
+                 enum: ["male", "female", "other", "prefer_not_to_say"],
+},
 
-                postalCode: {
-                    type: String,
-                },
-
-                country: {
-                    type: String,
-                },
-            },
-        ],
-
+    role: {
+               type: String,
+               enum: ["user", "admin"],
+               default: "user",
+    },
 
         // ==================== AUTHENTICATION ====================
 
@@ -88,7 +125,7 @@ const userSchema = new mongoose.Schema(
 
         isActive: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
 
