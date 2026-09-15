@@ -9,33 +9,8 @@ import jwt from "jsonwebtoken";
 // ==================== SIGNUP ====================
 
 export const signup = async (req: Request, res: Response) => {
-      console.log(" SIGNUP REQUEST RECEIVED ");
-
     try {
-        console.log("SIGNUP CONTROLLER HIT");
-        console.log("BODY:", req.body);
-        console.log("USER MODEL:", User);
-console.log("USER FINDONE TYPE:", typeof User.findOne);
-
         const { name, email, phone, password } = req.body;
-
-        // Check whether all fields are provided
-        if (!name || !email || !phone || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            });
-        }
-
-        // Check if user already exists
-        const existingUser = await User.findOne({ email });
-
-        if (existingUser) {
-            return res.status(409).json({
-                success: false,
-                message: "User already exists"
-            });
-        }
 
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -60,7 +35,6 @@ console.log("USER FINDONE TYPE:", typeof User.findOne);
         });
 
     } catch (error) {
-
         console.log("SIGNUP ERROR", error);
 
         return res.status(500).json({
@@ -75,16 +49,7 @@ console.log("USER FINDONE TYPE:", typeof User.findOne);
 
 export const login = async (req: Request, res: Response) => {
     try {
-
         const { email, password } = req.body;
-
-        // Check fields
-        if (!email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "Email and password are required"
-            });
-        }
 
         // Find user
         const user = await User
@@ -177,7 +142,6 @@ export const login = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
@@ -195,15 +159,9 @@ export const forgotPassword = async (
     res: Response
 ) => {
     try {
-
         const { email } = req.body;
 
-        if (!email) {
-            return res.status(400).json({
-                success: false,
-                message: "Email is required"
-            });
-        }
+       
 
         const user = await User.findOne({ email });
 
@@ -245,7 +203,6 @@ export const forgotPassword = async (
         });
 
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
@@ -263,9 +220,7 @@ export const changePassword = async (
     res: Response
 ) => {
     try {
-
         const { email, otp, newPassword } = req.body;
-
 
         if (!email || !otp || !newPassword) {
             return res.status(400).json({
@@ -330,7 +285,6 @@ export const changePassword = async (
         });
 
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
@@ -348,7 +302,6 @@ export const refreshToken = async (
     res: Response
 ) => {
     try {
-
         // Get refresh token from cookie
         const refreshToken = req.cookies.refreshToken;
 
@@ -412,7 +365,6 @@ export const refreshToken = async (
         });
 
     } catch (error) {
-
         return res.status(401).json({
             success: false,
             message: "Invalid or expired refresh token"
@@ -428,7 +380,6 @@ export const logout = async (
     res: Response
 ) => {
     try {
-
         // Get refresh token from cookie
         const refreshToken = req.cookies.refreshToken;
 
@@ -467,7 +418,6 @@ export const logout = async (
         });
 
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
