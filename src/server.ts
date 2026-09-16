@@ -1,7 +1,12 @@
 import dotenv from "dotenv"
 import express from "express"
 import cors from "cors";
-dotenv.config({ quiet: true });
+dotenv.config({
+    path: "/home/pushpinder/projects/e-commerce/backend/.env"
+});
+//dotenv.config({ quiet: true });
+console.log("ACCESS SECRET EXISTS:", !!process.env.JWT_ACCESS_SECRET);
+console.log("REFRESH SECRET EXISTS:", !!process.env.JWT_REFRESH_SECRET);
 import connectDB from "./config/db"
 import cookieParser from "cookie-parser";
 import router from "./app/Routes/index.routes";
@@ -12,7 +17,8 @@ const app = express();
 // Middleware
 app.use(
     cors({
-        origin: [ "http://localhost:5137" ],
+        origin:  "http://localhost:5173" ,
+        credentials: true,
         allowedHeaders:[
             "Authorization",
             "Content-Type"

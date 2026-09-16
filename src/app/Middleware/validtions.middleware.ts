@@ -41,3 +41,35 @@ export const loginValidations = [
         .notEmpty()
         .withMessage("Password is required!"),
 ];
+
+// Forgot Password
+
+export const forgotPasswordValidations = [
+    body("email")
+        .notEmpty()
+        .withMessage("Email is required!")
+        .isEmail()
+        .withMessage("Please enter a valid email!")
+];
+
+//Change Password
+
+export const changePasswordValidations = [
+    body("email")
+        .notEmpty()
+        .withMessage("Email is required!")
+        .isEmail()
+        .withMessage("Please enter a valid email!"),
+
+    body("otp")
+        .notEmpty()
+        .withMessage("OTP is required!")
+        .isNumeric()
+        .withMessage("OTP must contain only numbers!")
+        .isLength({ min: 6, max: 6 })
+        .withMessage("OTP must be exactly 6 digits!"),
+
+    body("newPassword")
+        .notEmpty()
+        .withMessage("New password is required!")
+];

@@ -222,12 +222,6 @@ export const changePassword = async (
     try {
         const { email, otp, newPassword } = req.body;
 
-        if (!email || !otp || !newPassword) {
-            return res.status(400).json({
-                success: false,
-                message: "Email, OTP and new password are required"
-            });
-        }
 
 
         // Hash the OTP entered by the user
